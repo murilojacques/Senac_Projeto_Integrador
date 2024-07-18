@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+        accesskey=""integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="w-75 mx-auto" style="margin-top: 100px ">
+            <div class="w-75 mx-auto" style="display: flex">
+                <form th:action="@{/Depositar}" style="margin-left: 80px" th:object="${V}" method="post">
+                    <input type="number" th:field="*{saldo}" name="name">
+                    <br>
+                    <button th:action="@{/Depositar}" type="submit" class="mt-2 btn btn-primary">Depositar</button>
+                    <button th:formaction="@{/Sacar}" type="submit" class=" mt-2 btn btn-primary">Sacar</button>
+                    <span th:text="${msg1}" class="text-danger"></span>
+                </form>
+               
+                <div>
+                    <a th:href="@{/MudarStatus}" style="height: 40px" class="btn btn-primary ml-5">Alterar Status</a>
+                    <br>
+                    <a th:href="@{/deletarConta}" style="height: 40px" class="btn btn-danger ml-5 mr-5 mt-2">Deletar Conta</a> 
+                </div>
+                
+                
+                <div style="display: block; margin-left: 110px" >
+                    <form th:action="@{/RealizarTransacao}"  th:object="${Transacao}" method="post">
+                      <p>Conta de Destino <input type="number" th:field="*{conta_destino_id}" placeholder="Id Conta Destinatario" name="Campo_Conta_Destino_Id"></p>
+                      <p style="margin-left: 85px;">Valor <input type="number" th:field="*{valor}" placeholder="Valor" name="Campo_Valor"></p>
+                      <span th:text="${msg}" class="text-danger"></span>
+                      <input  type="submit" class="btn btn-primary mt-1" value="Realizar Transação" name="name">
+                    </form>
+                </div>
+            </div>
+        
+            
+            
+            <div>
+            <br>
+                <table border="1" class="table table-striped table-responsive-md">
+                    <thead>
+                        <tr>
+                            <td>Id</td>
+                            <td>Conta Origem</td>
+                            <td>Conta Destino</td>
+                            <td>Tipo Transação</td>
+                            <td>Valor</td>
+                        </tr>
+                    </thead>  
+                    <tbody>
+                        <tr th:each="transacao : ${Transacoes}">
+                            <td th:text="${transacao.id}">
+                            <td th:text="${transacao.contaOrigemId}">
+                            <td th:text="${transacao.conta_destino_id}">
+                            <td th:text="${transacao.alteracao_conta}">
+                            <td th:text="${transacao.valor}">
+                        </tr>
+                    </tbody>
+                </table>
+            <br>
+                <a th:href="@{/PagLogin}">Voltar</a>
+        </div>
+        </div>
+        
+    </body>
+</html>
